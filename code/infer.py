@@ -8,11 +8,15 @@ import logging
 import rasterio
 import torch
 
-from mmseg.datasets.pipelines.compose import Compose
+from huggingface_hub import hf_hub_download
 
 from mmcv.parallel import collate, scatter
 from mmcv.runner import load_checkpoint
+
+from mmseg.apis import init_segmentor
+from mmseg.datasets.pipelines.compose import Compose
 from mmseg.models import build_segmentor
+
 from post_process import PostProcess
 
 print("!!!! Done importing packages")
@@ -21,17 +25,17 @@ CONFIG_DIR = "/opt/mmsegmentation/configs/{experiment}_config/geospatial_fm_conf
 DOWNLOAD_FOLDER = "/opt/downloads"
 
 MODEL_CONFIGS = {
-    'flood': {
-        'config': 'sen1floods11_Prithvi_100M.py',
-        'repo': 'ibm-nasa-geospatial/Prithvi-100M-sen1floods11',
-        'weight': 'sen1floods11_Prithvi_100M.pth',
-        'collections': ['HLSS30'],
+    "flood": {
+        "config": "sen1floods11_Prithvi_100M.py",
+        "repo": "ibm-nasa-geospatial/Prithvi-100M-sen1floods11",
+        "weight": "sen1floods11_Prithvi_100M.pth",
+        "collections": ["HLSS30"],
     },
-    'burn_scars': {
-        'config': 'burn_scars_Prithvi_100M.py',
-        'repo': 'ibm-nasa-geospatial/Prithvi-100M-burn-scar',
-        'weight': 'burn_scars_Prithvi_100M.pth',
-        'collections': ['HLSS30', 'HLSL30'],
+    "burn_scars": {
+        "config": "burn_scars_Prithvi_100M.py",
+        "repo": "ibm-nasa-geospatial/Prithvi-100M-burn-scar",
+        "weight": "burn_scars_Prithvi_100M.pth",
+        "collections": ["HLSS30", "HLSL30"],
     },
     # 'crop_classification': {
     #     'config': 'multi_temporal_crop_classification_Prithvi_100M.py',
@@ -41,19 +45,22 @@ MODEL_CONFIGS = {
     # },
 }
 
-def update_config(config, model_path):
-    with open(config, 'r') as config_file:
-        config_details = config_file.read()
-        updated_config = config_details.replace('<path to pretrained weights>', model_path)
 
-    with open(config, 'w') as config_file:
+def update_config(config, model_path):
+    with open(config, "r") as config_file:
+        config_details = config_file.read()
+        updated_config = config_details.replace(
+            "<path to pretrained weights>", model_path
+        )
+
+    with open(config, "w") as config_file:
         config_file.write(updated_config)
 
 
 def load_model(model_name):
-    repo = MODEL_CONFIGS[model_name]['repo']
-    config = hf_hub_download(repo, filename=MODEL_CONFIGS[model_name]['config'])
-    model_path = hf_hub_download(repo, filename=MODEL_CONFIGS[model_name]['weight'])
+    repo = MODEL_CONFIGS[model_name]["repo"]
+    config = hf_hub_download(repo, filename=MODEL_CONFIGS[model_name]["config"])
+    model_path = hf_hub_download(repo, filename=MODEL_CONFIGS[model_name]["weight"])
     update_config(config, model_path)
     infer = Infer(config, model_path)
     _ = infer.load_model()
@@ -64,7 +71,7 @@ class Loader:
     def __init__(self):
         self.initialized = False
         self.models = {}
-        
+
     # copied over from https://github.com/aws/amazon-sagemaker-examples/blob/main/advanced_functionality/multi_model_bring_your_own/container/model_handler.py
     def initialize(self, context):
         """
@@ -75,10 +82,12 @@ class Loader:
         properties = context.system_properties
         # Contains the url parameter passed to the load request
         model_path = properties.get("model_dir")
-        print('!!!!!!!', model_path, MODEL_CONFIGS)
-        self.models = { model_name: load_model(model_name) for model_name in MODEL_CONFIGS }
+        print("!!!!!!!", model_path, MODEL_CONFIGS)
+        self.models = {
+            model_name: load_model(model_name) for model_name in MODEL_CONFIGS
+        }
         self.initialized = True
-        
+
     def handle(self, data, context):
         """
         Call preprocess, inference and post-process functions
@@ -86,7 +95,7 @@ class Loader:
         :param context: mms context
         """
         print(f"****************{context}, {data}****************")
-        model_out = self.models[context.system_properties['model_dir']].infer([data])
+        model_out = self.models[context.system_properties["model_dir"]].infer([data])
         return infer.postprocess([model_out], [data])
 
 
@@ -109,10 +118,10 @@ class Infer:
         model_path = properties.get("model_dir")
         checkpoint_filename = context.model_name
         logging.info("Model directory: {}, {}".format(checkpoint_filename, properties))
-        logging.info(f"Configuration::: {list(os.walk(model_path))}" )
+        logging.info(f"Configuration::: {list(os.walk(model_path))}")
         # gpu_id = properties.get("gpu_id")
         self.load_model_config_file(model_path, checkpoint_filename)
-        # load models here 
+        # load models here
         # load model
         self.load_model()
 
@@ -122,7 +131,9 @@ class Infer:
         self.config.model.train_cfg = None
 
         if self.checkpoint_filename is not None:
-            self.model = init_segmentor(self.config, self.checkpoint_filename, device="cuda:0")
+            self.model = init_segmentor(
+                self.config, self.checkpoint_filename, device="cuda:0"
+            )
             self.checkpoint = load_checkpoint(
                 self.model, self.checkpoint_filename, map_location="cpu"
             )
@@ -145,9 +156,9 @@ class Infer:
         data = []
         for image in images:
             image_data = dict(img_info=dict(filename=image))
-            image_data['seg_fields'] = []
-            image_data['img_prefix'] = DOWNLOAD_FOLDER
-            image_data['seg_prefix'] = DOWNLOAD_FOLDER
+            image_data["seg_fields"] = []
+            image_data["img_prefix"] = DOWNLOAD_FOLDER
+            image_data["seg_prefix"] = DOWNLOAD_FOLDER
             image_data = test_pipeline(image_data)
             data.append(image_data)
         data = collate(data, samples_per_gpu=1)
@@ -171,16 +182,19 @@ class Infer:
         :return: model config file
         """
         from glob import glob
+
         model_files = glob(f"{model_path}/*")
         logging.info(f"Configuration:: {model_files}")
         model_name = model_files[-1]
-        splits = os.path.basename(model_name).replace('.pth', '').split('_')
-        username = splits[0] 
+        splits = os.path.basename(model_name).replace(".pth", "").split("_")
+        username = splits[0]
         experiment = "_".join(splits[1:])
 
         self.config_filename = CONFIG_DIR.format(experiment=experiment)
         self.checkpoint_filename = f"{model_path}/{model_name}"
-        logging.info("Model config for user {}: {}".format(username, self.config_filename))
+        logging.info(
+            "Model config for user {}: {}".format(username, self.config_filename)
+        )
 
     def postprocess(self, results, files):
         """
@@ -208,6 +222,7 @@ class Infer:
 
 print("!!!!!", "Loading models")
 _service = Loader()
+
 
 def handle(data, context):
     logging.info(f"Data to be processed: {data}")
