@@ -53,12 +53,13 @@ def download_data(data, split):
     bucket_name = splits[2]
     bucket = s3_connection.Bucket(bucket_name)
     objects = list(bucket.objects.filter(Prefix="/".join(splits[3:] + [split])))
+    print("Downloading files.")
     for iter_object in objects:
-        print(iter_object.key)
         splits = iter_object.key.split('/')
         if splits[-1]:
             filename = f"{split_folder}/{splits[-1]}"
             bucket.download_file(iter_object.key, filename)
+    print("Finished downloading files.")
 
 
 def train():
@@ -87,7 +88,7 @@ def train():
     #     for name in files:
     #         print("files:", os.path.join(root, name))
     #     for name in dirs:
-    #         print("files:", os.path.join(root, name))
+    #         print("files:", os.pvimath.join(root, name))
 
     # subprocess.run(f"mim train mmsegmentation {config_file} --launcher pytorch --gpus 1".split(' '))
     # set random seeds
@@ -191,7 +192,9 @@ def train():
 
     # At the end of the training loop, we have to save model artifacts.
     model_dir = os.environ["MODEL_DIR"]
-    save_model_artifacts(model_dir + "/", net)
+    session = assumed_role_session()
+    s3_connection = session.resource('s3')
+    save_model_artifacts(s3_connection, model_dir + "/")
 
 
 if __name__ == "__main__":
