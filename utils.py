@@ -5,12 +5,14 @@ from os import path
 BUCKET_NAME = os.environ['S3_URL'].split('/')[2]
 MODEL_PATH = "models/{model_name}"
 
+
 def save_model_artifacts(s3_connection, model_artifacts_path):
     if path.exists(model_artifacts_path):
-        model_name = model_artifacts_path.split('/')[-1]
-        model_name = MODEL_PATH.format(model_name)
-        print(f"Uploading model to s3: s3://{BUCKET_NAME}/{model_name}")
-        s3_connection.meta.client.upload_file(model_artifacts_path, BUCKET_NAME, model_name)
+        for model_file in glob(f"{model_artifacts_path}/*.pth"):
+            model_name = model_file.split('/')[-1]
+            model_name = MODEL_PATH.format(model_name)
+            print(f"Uploading model to s3: s3://{BUCKET_NAME}/{model_name}")
+            s3_connection.meta.client.upload_file(model_file, BUCKET_NAME, model_name)
 
 
 def print_files_in_path(path):

@@ -97,7 +97,8 @@ def train():
     seed = init_random_seed(10, device=cfg.device)
     # init the logger before other steps
     timestamp = time.strftime('%Y%m%d_%H%M%S', time.localtime())
-    os.makedirs('/opt/ml/code/v1/burn_scars/')
+    model_path = f"/opt/ml/code/{os.environ['VERSION']}/{os.environ['EVENT_TYPE']}/"
+    os.makedirs(model_path)
 
     log_file = osp.join(cfg.work_dir, f'{timestamp}.log')
     logger = get_root_logger(log_file=log_file, log_level=cfg.log_level)
@@ -194,7 +195,7 @@ def train():
     model_dir = os.environ["MODEL_DIR"]
     session = assumed_role_session()
     s3_connection = session.resource('s3')
-    save_model_artifacts(s3_connection, model_dir + "/")
+    save_model_artifacts(s3_connection, model_path)
 
 
 if __name__ == "__main__":
