@@ -11,7 +11,7 @@ def save_model_artifacts(s3_connection, model_artifacts_path):
     if path.exists(model_artifacts_path):
         for model_file in glob(f"{model_artifacts_path}/*.pth"):
             model_name = model_file.split('/')[-1]
-            model_name = MODEL_PATH.format(model_name)
+            model_name = MODEL_PATH.format(model_name=model_name)
             print(f"Uploading model to s3: s3://{BUCKET_NAME}/{model_name}")
             s3_connection.meta.client.upload_file(model_file, BUCKET_NAME, model_name)
 
