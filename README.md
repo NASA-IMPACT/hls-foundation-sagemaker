@@ -3,6 +3,14 @@
 
 This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foudnation Model can be finetuned using AWS sagemaker. The repo will also demonstrate how to get inferences from the fine-tuned model after the training is complete.
 
+# Prerequisites
+1. Basic understanding of git
+2. Python and jupyter environment knowledge
+3. Basic understanding of docker
+4. Basic understanding of cloud services
+5. Machine Learning knowledge
+6. Some understanding of Geo-spatial datasets.
+
 # Getting started
 1. Get your credentials and other information using http://smd-ai-workshop-creds-webapp.s3-website-us-east-1.
 2. Navigate to https://nasa-impact.awsapps.com/start#/ 
