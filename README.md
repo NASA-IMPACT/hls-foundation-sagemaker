@@ -1,7 +1,7 @@
 <!---- Provide an overview of what is being achieved in this repo ----> 
 # HLS Foundation model Finetuning using AWS Sagemaker
 
-This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foudnation Model can be finetuned using AWS sagemaker. The repo will also demonstrate how to get inferences from the fine-tuned model after the training is complete.
+This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foundation Model can be finetuned using AWS sagemaker. The repo will also demonstrate how to get inferences from the fine-tuned model after the training is complete.
 
 # Prerequisites
 1. Basic understanding of git
