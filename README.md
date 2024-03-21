@@ -9,10 +9,19 @@ This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foudnati
 3. Log in using the credential provided
 4. Navigate to the `Applications` tab
 5. Click and open `Amazon SageMaker Studio
+6. Once the Studio starts, Click on JupyterLab
+7. Click `Create JupyterLab Space`
+8. Give it a name. Eg: `Workshop`
+9. Once initialized, change Instance type to `ml.t3.large` and storage to `50`
+10. Click on `Run Space`
 
 # Steps to Train (Parts of these steps are also available in the [fine-tuning notebook](notebooks/hls-fm-finteuning.ipynb)):
-
 1. Clone this repository `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`
+```
+a. Click `git`
+b. Click on `Git Clone Repo`
+c. Paste `https://github.com/nasa-impact/hls-foundation-sagemaker.git` and Click on `Clone`.
+```
 2. Change directory into the cloned repository `cd hls-foundation-sagemaker`
 3. Open the [fine-tuning notebook](notebooks/hls-fm-finteuning.ipynb)
 4. Install required packages
