@@ -9,7 +9,7 @@ einops==0.6.0
 flake8
 interrogate
 jupyterlab==4.0.1
-matplotlib==3.5.1
+matplotlib==3.7.2
 model_archiver==1.0.3
 myst-parser -e git+https://github.com/gaotongxiao/pytorch_sphinx_theme.git#egg=pytorch_sphinx_theme
 natsort==8.3.1
