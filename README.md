@@ -30,6 +30,8 @@ a. Click `git`
 b. Click on `Git Clone Repo`
 c. Paste `https://github.com/nasa-impact/hls-foundation-sagemaker.git` and Click on `Clone`.
 ```
+
+**Note: We will follow through in the Notebook from this step.**
 2. Change directory into the cloned repository `cd hls-foundation-sagemaker`
 3. Open the [fine-tuning notebook](notebooks/hls-fm-finteuning.ipynb)
 4. Install required packages
