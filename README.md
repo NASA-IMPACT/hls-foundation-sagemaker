@@ -1,7 +1,7 @@
 <!---- Provide an overview of what is being achieved in this repo ----> 
 # HLS Foundation model Finetuning using AWS Sagemaker
 
-This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foudnation Model can be finetuned using AWS sagemaker. The repo will also demonstrate how to get inferences from the fine-tuned model after the training is complete.
+This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foundation Model can be finetuned using AWS sagemaker. The repo will also demonstrate how to get inferences from the fine-tuned model after the training is complete.
 
 # Prerequisites
 1. Basic understanding of git
@@ -21,7 +21,7 @@ This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foudnati
 7. Click `Create JupyterLab Space`
 8. Give it a name. Eg: `Workshop`
 9. Once initialized, change Instance type to `ml.t3.large` and storage to `50`
-10. Click on `Run Space`
+10. Click on `Run Space`. If it throws an error, you might have to pick an Image. The top setting called `Latest` works. 
 
 # Steps to Train (Parts of these steps are also available in the [fine-tuning notebook](notebooks/hls-fm-finteuning.ipynb)):
 1. Clone this repository `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`
