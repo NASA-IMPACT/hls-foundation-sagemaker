@@ -12,7 +12,7 @@ This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foundati
 6. Some understanding of Geo-spatial datasets.
 
 # Getting started
-1. Get your credentials and other information using http://smd-ai-workshop-creds-webapp.s3-website-us-east-1.
+1. Get your credentials and other information using https://creds-workshop.nasa-impact.net/
 ![Get Credentials](images/credential.png)
 ![Credentials](images/credentials-show.png)
 2. Navigate to https://nasa-impact.awsapps.com/start#/ 
