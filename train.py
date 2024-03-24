@@ -81,7 +81,7 @@ def train():
     net = None
 
     # download and prepare data for training:
-    for split in ['train', 'validation', 'test', 'configs', 'models']:
+    for split in ['training', 'validation', 'test', 'configs', 'models']:
         download_data(os.environ.get('S3_URL'), split)
 
     # for root, dirs, files in os.walk("/opt/ml/data", topdown=False):
