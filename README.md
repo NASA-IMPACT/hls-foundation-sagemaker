@@ -1,8 +1,11 @@
 <!---- Provide an overview of what is being achieved in this repo ----> 
-# HLS Foundation model Finetuning using AWS Sagemaker
+# Prithvi Finetuning
+This repo contains materials for Prithvi Global Finetuning. Here, we will cover geospatial foundation models and Weather Foundation model. We will also be fine-tuning the aforementioned models for specific usecases. For the purposes of this tutorial, we will be utilizing AWS sagemaker environment. The repo will also demonstrate how to get inferences from the fine-tuned prithvi models after the training is complete.
 
-This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foundation Model can be finetuned using AWS sagemaker. The repo will also demonstrate how to get inferences from the fine-tuned model after the training is complete.
+# Slides:
+[Geospatial Foundation Model - TBD](https://docs.google.com/presentation/d/1i06aDGXIHcXYLqzXNkBRaA4EC3ggpD2E/edit?usp=drive_link&ouid=110979708004719970003&rtpof=true&sd=true)
 
+[Prithvi Weather and Foundation Model - TBD](https://docs.google.com/presentation/d/1mwhwrWGeuaZeecLLKs6swCBoE2PMw1z_/edit?usp=drive_link&ouid=110979708004719970003&rtpof=true&sd=true)
 # Prerequisites
 1. Basic understanding of git
 2. Python and jupyter environment knowledge
@@ -15,23 +18,19 @@ This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foundati
 1. Get your credentials and other information using https://creds-workshop.nasa-impact.net/
 ![Get Credentials](images/credential.png)
 ![Credentials](images/credentials-show.png)
-2. Navigate to https://nasa-impact.awsapps.com/start#/ 
+2. Navigate to [Login URL](https://ieeeworkshop.auth.us-west-2.amazoncognito.com/oauth2/authorize?client_id=6jbiuqf95egh4mke5g8r48dkro&response_type=code&scope=openid+profile&redirect_uri=https%3A%2F%2Fvupp3dvvji.execute-api.us-west-2.amazonaws.com%2Fdev%2Furl)
 ![Login Page](images/login-1.png)
 3. Log in using the credential provided
 ![Login with username and password](images/login-2.png)
-4. Navigate to the `Applications` tab
-![Logged in home page](images/loggedin.png)
-5. Click and open `Amazon SageMaker Studio`
-![List of Applications](images/applications.png)
-6. Once the Studio starts, Click on JupyterLab
+4. Once the Studio starts, Click on JupyterLab
 ![Sagemaker studio](images/sagemaker-studio.png)
 ![JupyterLab spaces](images/jupyterlab-spaces.png)
-7. Click `Create JupyterLab Space`
+5. Click `Create JupyterLab Space`
 ![JupyterLab spaces](images/create-jupyterlab-env.png)
-8. Give it a name. Eg: `Workshop`
-9. Once initialized, change Instance type to `ml.t3.large` and storage to `50`
+6. Give it a name. Eg: `Workshop`
+7. Once initialized, change Instance type to `ml.t3.2xlarge` and storage to `50`
 ![Change instance type](images/update-instance-type.png)
-10. Click on `Run Space`. If it throws an error, you might have to pick an Image. The top setting called `Latest` works. 
+8. Click on `Run Space`. If it throws an error, you might have to pick an Image. The top setting called `Latest` works.
 ![Run space](images/updated-instance-config.png)
 
 # Steps to Train (Parts of these steps are also available in the [fine-tuning notebook](notebooks/hls-fm-finteuning.ipynb)):
