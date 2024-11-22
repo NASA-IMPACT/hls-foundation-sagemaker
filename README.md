@@ -1,4 +1,4 @@
-<!---- Provide an overview of what is being achieved in this repo ----> 
+<!---- Provide an overview of what is being achieved in this repo ---->
 # Prithvi Finetuning
 This repo contains materials for Prithvi Global Finetuning. Here, we will cover geospatial foundation models and Weather Foundation model. We will also be fine-tuning the aforementioned models for specific usecases. For the purposes of this tutorial, we will be utilizing AWS sagemaker environment. The repo will also demonstrate how to get inferences from the fine-tuned prithvi models after the training is complete.
 
@@ -6,6 +6,7 @@ This repo contains materials for Prithvi Global Finetuning. Here, we will cover 
 [Geospatial Foundation Model - TBD](https://docs.google.com/presentation/d/1i06aDGXIHcXYLqzXNkBRaA4EC3ggpD2E/edit?usp=drive_link&ouid=110979708004719970003&rtpof=true&sd=true)
 
 [Prithvi Weather and Foundation Model - TBD](https://docs.google.com/presentation/d/1mwhwrWGeuaZeecLLKs6swCBoE2PMw1z_/edit?usp=drive_link&ouid=110979708004719970003&rtpof=true&sd=true)
+
 # Prerequisites
 1. Basic understanding of git
 2. Python and jupyter environment knowledge
@@ -16,7 +17,7 @@ This repo contains materials for Prithvi Global Finetuning. Here, we will cover 
 
 # Getting started
 1. Get your credentials and other information using https://creds-workshop.nasa-impact.net/
-![Get Credentials](images/credential.png)
+![Get Credentials](images/credentials.png)
 ![Credentials](images/credentials-show.png)
 2. Navigate to [Login URL](https://ieeeworkshop.auth.us-west-2.amazoncognito.com/oauth2/authorize?client_id=6jbiuqf95egh4mke5g8r48dkro&response_type=code&scope=openid+profile&redirect_uri=https%3A%2F%2Fvupp3dvvji.execute-api.us-west-2.amazonaws.com%2Fdev%2Furl)
 ![Login Page](images/login-1.png)
