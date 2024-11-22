@@ -19,7 +19,7 @@ This repo contains materials for Prithvi Global Finetuning. Here, we will cover 
 1. Get your credentials and other information using https://creds-workshop.nasa-impact.net/
 ![Get Credentials](images/credentials.png)
 ![Credentials](images/credentials-show.png)
-2. Navigate to [Login URL]https://workshop-domain-3vgdzxn4.auth.us-west-2.amazoncognito.com/login?client_id=6mm4re0d41kcffjp2mlbmtatji&response_type=code&scope=aws.cognito.signin.user.admin+openid+profile&redirect_uri=https://jck7myoluc.execute-api.us-west-2.amazonaws.com/invoke
+2. Navigate to [Login URL] https://workshop-domain-3vgdzxn4.auth.us-west-2.amazoncognito.com/login?client_id=6mm4re0d41kcffjp2mlbmtatji&response_type=code&scope=aws.cognito.signin.user.admin+openid+profile&redirect_uri=https://jck7myoluc.execute-api.us-west-2.amazonaws.com/invoke
 ![Login Page](images/login-1.png)
 3. Log in using the credential provided
 ![Login with username and password](images/login-2.png)
