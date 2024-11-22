@@ -1,7 +1,11 @@
 <!---- Provide an overview of what is being achieved in this repo ---->
-# HLS Foundation model Finetuning using AWS Sagemaker
+# Prithvi Finetuning
+This repo contains materials for Prithvi Global Finetuning. Here, we will cover geospatial foundation models and Weather Foundation model. We will also be fine-tuning the aforementioned models for specific usecases. For the purposes of this tutorial, we will be utilizing AWS sagemaker environment. The repo will also demonstrate how to get inferences from the fine-tuned prithvi models after the training is complete.
 
-This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foundation Model can be finetuned using AWS sagemaker. The repo will also demonstrate how to get inferences from the fine-tuned model after the training is complete.
+# Slides:
+[Geospatial Foundation Model - Dr. Sujit Roy](https://docs.google.com/presentation/d/1i06aDGXIHcXYLqzXNkBRaA4EC3ggpD2E/edit?usp=drive_link&ouid=110979708004719970003&rtpof=true&sd=true)
+
+[Prithvi Weather and Foundation Model - Dr. Rajat Shinde](https://docs.google.com/presentation/d/14jnTbak9xAt36Bfy15oBH8pcR_AiKa9p/edit?usp=drive_link&ouid=110979708004719970003&rtpof=true&sd=true)
 
 # Prerequisites
 1. Basic understanding of git
@@ -13,35 +17,29 @@ This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foundati
 
 # Getting started
 1. Get your credentials and other information using https://creds-workshop.nasa-impact.net/
-![Get Credentials](images/credential.png)
+![Get Credentials](images/credentials.png)
 ![Credentials](images/credentials-show.png)
-2. Navigate to https://nasa-impact.awsapps.com/start#/
+2. Navigate to [Login URL](https://ieeeworkshop.auth.us-west-2.amazoncognito.com/oauth2/authorize?client_id=6jbiuqf95egh4mke5g8r48dkro&response_type=code&scope=openid+profile&redirect_uri=https%3A%2F%2Fvupp3dvvji.execute-api.us-west-2.amazonaws.com%2Fdev%2Furl)
 ![Login Page](images/login-1.png)
 3. Log in using the credential provided
 ![Login with username and password](images/login-2.png)
-4. Navigate to the `Applications` tab
-![Logged in home page](images/loggedin.png)
-5. Click and open `Amazon SageMaker Studio`
-![List of Applications](images/applications.png)
-6. Once the Studio starts, Click on JupyterLab
+4. Once the Studio starts, Click on JupyterLab
 ![Sagemaker studio](images/sagemaker-studio.png)
 ![JupyterLab spaces](images/jupyterlab-spaces.png)
-7. Click `Create JupyterLab Space`
+5. Click `Create JupyterLab Space`
 ![JupyterLab spaces](images/create-jupyterlab-env.png)
-8. Give it a name. Eg: `Workshop`
-9. Once initialized, change Instance type to `ml.t3.large` and storage to `50`
+6. Give it a name. Eg: `Workshop`
+7. Once initialized, change Instance type to `ml.t3.2xlarge` and storage to `50`
 ![Change instance type](images/update-instance-type.png)
-10. Click on `Run Space`. If it throws an error, you might have to pick an Image. The top setting called `Latest` works.
+8. Click on `Run Space`. If it throws an error, you might have to pick an Image. The top setting called `Latest` works.
 ![Run space](images/updated-instance-config.png)
 
 # Steps to Train (Parts of these steps are also available in the [fine-tuning notebook](notebooks/hls-fm-finteuning.ipynb)):
-1. Clone this repository `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`
-a. Open new terminal
-b. Install git lfs:
+1. Open a new terminal and run the following command to install git lfs
 
 `sudo apt update;sudo apt-get install git-lfs; git lfs install`
 
-c. Clone this repository
+2. Clone this repository
 
 `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`.
 
@@ -49,49 +47,46 @@ c. Clone this repository
 
 
 **Note: We will follow through in the Notebook from this step.**
-2. Change directory into the cloned repository `cd hls-foundation-sagemaker`
-3. Open the [fine-tuning notebook](notebooks/hls-fm-finteuning.ipynb)
-4. Install required packages
+3. Change directory into the cloned repository `cd hls-foundation-sagemaker`
+4. Open the [fine-tuning notebook](notebooks/hls-fm-finteuning.ipynb)
+5. Install required packages
 ```
 pip install -r requirements.txt
 ```
-5. Create required folders
+6. Create required folders
 ```
 !mkdir datasets
 !mkdir models
 !mkdir configs
 ```
-6. Install git LFS (needed for data download from huggingface)
-```
-! sudo apt-get install git-lfs; git lfs install
-```
+
 7. Download HLS Burn scars dataset
 ```
 ! cd datasets; git clone https://huggingface.co/datasets/ibm-nasa-geospatial/hls_burn_scars; tar -xvzf hls_burn_scars/hls_burn_scars.tar.gz
 ```
-6. Define constants. **Note: Please update the variables as needed**
+8. Define constants. **Note: Please update the variables as needed**
 ```
 BUCKET_NAME = '<your-bucket-name>' # Replace this with the bucket name available from http://smd-ai-workshop-creds-webapp.s3-website-us-east-1.amazonaws.com/
 CONFIG_PATH = './configs'
 DATASET_PATH = './datasets'
 MODEL_PATH = './models'
 ```
-7. Download model configuration and pre-trained model from huggingface
+9. Download model configuration and pre-trained model from huggingface
 ```
 from huggingface_hub import hf_hub_download
 
 hf_hub_download(repo_id="ibm-nasa-geospatial/Prithvi-100M-burn-scar", filename="burn_scars_Prithvi_100M.py", local_dir='./configs')
 hf_hub_download(repo_id="ibm-nasa-geospatial/Prithvi-100M", filename="Prithvi_100M.pt", local_dir='./models')
 ```
-8. Update the configuration file
+10. Update the configuration file
 ```
 1. Update line number 13 from `data_root = '<path to data root>'` to `data_root = '/opt/ml/data/'`. This is the base of our data inside of sagemaker.
 2. Update line number 41 from `pretrained_weights_path = '<path to pretrained weights>'` to `pretrained_weights_path = f"{data_root}/models/Prithvi_100M.pt"`. This provides the pre-trained model path to the train script.
-3. Update line number 53 from `experiment = '<experiment name>'` to `experiment = 'burn_scars'` or your choice of experiment name.
-4. Update line number 54 from `project_dir = '<project directory name>'` to `project_dir = 'v1'` or your choice of project directory name.
+3. Update line number 52 from `experiment = '<experiment name>'` to `experiment = 'burn_scars'` or your choice of experiment name.
+4. Update line number 53 from `project_dir = '<project directory name>'` to `project_dir = 'v1'` or your choice of project directory name.
 5. Save the config file.
 ```
-9. Upload downloaded data using sagemaker to the desired s3 bucket
+11. Upload downloaded data using sagemaker to the desired s3 bucket
 ```
 import sagemaker
 
@@ -100,7 +95,7 @@ train_images = sagemaker_session.upload_data(path='datasets/training', bucket=BU
 val_images = sagemaker_session.upload_data(path='datasets/validation', bucket=BUCKET_NAME, key_prefix='data/validation')
 test_images = sagemaker_session.upload_data(path='datasets/validation', bucket=BUCKET_NAME, key_prefix='data/test')
 ```
-10. Rename and upload configuration file and pre-trained model
+12. Rename and upload configuration file and pre-trained model
 ```
 import os
 
@@ -113,7 +108,7 @@ os.rename(config_filename, new_config_filename)
 configs = sagemaker_session.upload_data(path=new_config_filename, bucket=BUCKET_NAME, key_prefix='data/configs')
 models = sagemaker_session.upload_data(path='models/Prithvi_100M.pt', bucket=BUCKET_NAME, key_prefix='data/models')
 ```
-11. Setup variables for training using Sagemaker
+13. Setup variables for training using Sagemaker
 ```
 from datetime import time
 from sagemaker import get_execution_role
@@ -143,7 +138,7 @@ instance_type = 'ml.p3.2xlarge'
 instance_count = 1
 memory_volume = 50
 ```
-12. Initialize sagemaker estimator and start training
+14. Initialize sagemaker estimator and start training
 ```
 estimator = Estimator(image_uri=ecr_container_url,
                       role=get_execution_role(),
