@@ -19,7 +19,7 @@ This repo contains materials for Prithvi Global Finetuning. Here, we will cover 
 1. Get your credentials and other information using https://creds-workshop.nasa-impact.net/
 ![Get Credentials](images/credentials.png)
 ![Credentials](images/credentials-show.png)
-2. Navigate to [Login URL](https://ieeeworkshop.auth.us-west-2.amazoncognito.com/oauth2/authorize?client_id=6jbiuqf95egh4mke5g8r48dkro&response_type=code&scope=openid+profile&redirect_uri=https%3A%2F%2Fvupp3dvvji.execute-api.us-west-2.amazonaws.com%2Fdev%2Furl)
+2. Navigate to [Login URL]https://workshop-domain-3vgdzxn4.auth.us-west-2.amazoncognito.com/login?client_id=6mm4re0d41kcffjp2mlbmtatji&response_type=code&scope=aws.cognito.signin.user.admin+openid+profile&redirect_uri=https://jck7myoluc.execute-api.us-west-2.amazonaws.com/invoke
 ![Login Page](images/login-1.png)
 3. Log in using the credential provided
 ![Login with username and password](images/login-2.png)
@@ -29,7 +29,7 @@ This repo contains materials for Prithvi Global Finetuning. Here, we will cover 
 5. Click `Create JupyterLab Space`
 ![JupyterLab spaces](images/create-jupyterlab-env.png)
 6. Give it a name. Eg: `Workshop`
-7. Once initialized, change Instance type to `ml.t3.2xlarge` and storage to `50`
+7. Once initialized, change Instance type to `ml.t3.2xlarge` and storage to `75`
 ![Change instance type](images/update-instance-type.png)
 8. Click on `Run Space`. If it throws an error, you might have to pick an Image. The top setting called `Latest` works.
 ![Run space](images/updated-instance-config.png)
@@ -41,7 +41,7 @@ This repo contains materials for Prithvi Global Finetuning. Here, we will cover 
 
 2. Clone this repository
 
-`git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`.
+`git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`
 
 ![Cloned repository](images/smd-hls-cloned-content.png)
 
@@ -81,7 +81,7 @@ hf_hub_download(repo_id="ibm-nasa-geospatial/Prithvi-100M", filename="Prithvi_10
 10. Update the configuration file
 ```
 1. Update line number 13 from `data_root = '<path to data root>'` to `data_root = '/opt/ml/data/'`. This is the base of our data inside of sagemaker.
-2. Update line number 41 from `pretrained_weights_path = '<path to pretrained weights>'` to `pretrained_weights_path = f"{data_root}/models/Prithvi_100M.pt"`. This provides the pre-trained model path to the train script.
+2. Update line number 41 from `pretrained_weights_path = '<path to pretrained weights>'` to `pretrained_weights_path = f"{data_root}/models/prithvi-global-300M.pt"`. This provides the pre-trained model path to the train script.
 3. Update line number 52 from `experiment = '<experiment name>'` to `experiment = 'burn_scars'` or your choice of experiment name.
 4. Update line number 53 from `project_dir = '<project directory name>'` to `project_dir = 'v1'` or your choice of project directory name.
 5. Save the config file.
