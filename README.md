@@ -35,13 +35,10 @@ This repo contains materials for Prithvi Global Finetuning. Here, we will cover 
 ![Run space](images/updated-instance-config.png)
 
 # Steps to Train (Parts of these steps are also available in the [fine-tuning notebook](notebooks/hls-fm-finteuning.ipynb)):
-1. Clone this repository `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`
-a. Open new terminal
-b. Install git lfs:
-
+1. a.  Open a new terminal and run the following command to install git lfs
 `sudo apt update;sudo apt-get install git-lfs; git lfs install`
 
-c. Clone this repository
+1. b. Clone this repository
 
 `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`.
 
@@ -87,8 +84,8 @@ hf_hub_download(repo_id="ibm-nasa-geospatial/Prithvi-100M", filename="Prithvi_10
 ```
 1. Update line number 13 from `data_root = '<path to data root>'` to `data_root = '/opt/ml/data/'`. This is the base of our data inside of sagemaker.
 2. Update line number 41 from `pretrained_weights_path = '<path to pretrained weights>'` to `pretrained_weights_path = f"{data_root}/models/Prithvi_100M.pt"`. This provides the pre-trained model path to the train script.
-3. Update line number 53 from `experiment = '<experiment name>'` to `experiment = 'burn_scars'` or your choice of experiment name.
-4. Update line number 54 from `project_dir = '<project directory name>'` to `project_dir = 'v1'` or your choice of project directory name.
+3. Update line number 52 from `experiment = '<experiment name>'` to `experiment = 'burn_scars'` or your choice of experiment name.
+4. Update line number 53 from `project_dir = '<project directory name>'` to `project_dir = 'v1'` or your choice of project directory name.
 5. Save the config file.
 ```
 9. Upload downloaded data using sagemaker to the desired s3 bucket
