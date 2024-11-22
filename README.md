@@ -38,7 +38,7 @@ This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foundati
 1. Clone this repository `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`
 ```
 a. Open new terminal
-b. Install git lfs: `sudo apt-get install git-lfs; git lfs install`
+b. Install git lfs: `sudo apt update;sudo apt-get install git-lfs; git lfs install`
 c. Clone this repository `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`.
 ![Cloned repository](images/smd-hls-cloned-content.png)
 ```
