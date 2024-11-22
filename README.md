@@ -36,11 +36,9 @@ This repo contains materials for Prithvi Global Finetuning. Here, we will cover 
 # Steps to Train (Parts of these steps are also available in the [fine-tuning notebook](notebooks/hls-fm-finteuning.ipynb)):
 1. Clone this repository `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`
 ```
-a. Click `git`
-b. Click on `Git Clone Repo`
-![Git clone](images/git-clone-1.png)
-c. Paste `https://github.com/nasa-impact/hls-foundation-sagemaker.git` and Click on `Clone`.
-![Cloned repository](images/smd-hls-git-clone.png)
+a. Open new terminal
+b. Install git lfs: `sudo apt-get install git-lfs; git lfs install`
+c. Clone this repository `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`.
 ![Cloned repository](images/smd-hls-cloned-content.png)
 ```
 
@@ -63,11 +61,11 @@ pip install -r requirements.txt
 ```
 7. Download HLS Burn scars dataset
 ```
-! cd datasets; git clone https://huggingface.co/datasets/ibm-nasa-geospatial/hls_burn_scars; tar -xvzf hls_burn_scars/hls_burn_scars.tar.gz 
+! cd datasets; git clone https://huggingface.co/datasets/ibm-nasa-geospatial/hls_burn_scars; tar -xvzf hls_burn_scars/hls_burn_scars.tar.gz
 ```
 6. Define constants. **Note: Please update the variables as needed**
 ```
-BUCKET_NAME = '<your-bucket-name>' # Replace this with the bucket name available from http://smd-ai-workshop-creds-webapp.s3-website-us-east-1.amazonaws.com/ 
+BUCKET_NAME = '<your-bucket-name>' # Replace this with the bucket name available from http://smd-ai-workshop-creds-webapp.s3-website-us-east-1.amazonaws.com/
 CONFIG_PATH = './configs'
 DATASET_PATH = './datasets'
 MODEL_PATH = './models'
@@ -84,7 +82,7 @@ hf_hub_download(repo_id="ibm-nasa-geospatial/Prithvi-100M", filename="Prithvi_10
 1. Update line number 13 from `data_root = '<path to data root>'` to `data_root = '/opt/ml/data/'`. This is the base of our data inside of sagemaker.
 2. Update line number 41 from `pretrained_weights_path = '<path to pretrained weights>'` to `pretrained_weights_path = f"{data_root}/models/Prithvi_100M.pt"`. This provides the pre-trained model path to the train script.
 3. Update line number 53 from `experiment = '<experiment name>'` to `experiment = 'burn_scars'` or your choice of experiment name.
-4. Update line number 54 from `project_dir = '<project directory name>'` to `project_dir = 'v1'` or your choice of project directory name. 
+4. Update line number 54 from `project_dir = '<project directory name>'` to `project_dir = 'v1'` or your choice of project directory name.
 5. Save the config file.
 ```
 9. Upload downloaded data using sagemaker to the desired s3 bucket
@@ -240,11 +238,11 @@ EVENT_DETAILS = {
 ```
 map = leafmap.Map(
         center=(event_details['center_lat'],
-        event_details['center_lon']), 
-        zoom=event_details['default_zoom'], 
-        draw_control=True, 
-        measure_control=False, 
-        fullscreen_control=False, 
+        event_details['center_lon']),
+        zoom=event_details['default_zoom'],
+        draw_control=True,
+        measure_control=False,
+        fullscreen_control=False,
         attribution_control=True
     )
 map.add_tile_layer(HLSL30_TILE_LAYER, name='HLSL30', attribution='NASA')
@@ -254,7 +252,7 @@ map
 5. Draw a bounding box and save it to `bbox.geojson`
 ```
 map.save_draw_features("bbox.geojson")
-``` 
+```
 6. Prepare payload and call API for results using the fine-tuned model
 ```
 
@@ -296,9 +294,9 @@ headers = {
 
 # Use deployed app to get inference on the selected date/location
 response = requests.request(
-      "POST", 
-      f"{INFERENCE_URL}/infer", 
-      headers=headers, 
+      "POST",
+      f"{INFERENCE_URL}/infer",
+      headers=headers,
       data=payload
   )
 
@@ -310,11 +308,11 @@ geojson = predictions['predictions']
 
 detection_map = leafmap.Map(
         center=(event_details['center_lat'],
-        event_details['center_lon']), 
-        zoom=event_details['default_zoom'], 
-        draw_control=True, 
-        measure_control=False, 
-        fullscreen_control=False, 
+        event_details['center_lon']),
+        zoom=event_details['default_zoom'],
+        draw_control=True,
+        measure_control=False,
+        fullscreen_control=False,
         attribution_control=True
     )
 detection_map.add_tile_layer(HLSL30_TILE_LAYER, name='HLSL30', attribution='NASA')
