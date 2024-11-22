@@ -36,7 +36,6 @@ This repo demonstrates the how  Harmonized Landsat and Sentinel-2 (HLS) Foundati
 
 # Steps to Train (Parts of these steps are also available in the [fine-tuning notebook](notebooks/hls-fm-finteuning.ipynb)):
 1. Clone this repository `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`
-```
 a. Open new terminal
 b. Install git lfs:
 
@@ -47,7 +46,7 @@ c. Clone this repository
 `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`.
 
 ![Cloned repository](images/smd-hls-cloned-content.png)
-```
+
 
 **Note: We will follow through in the Notebook from this step.**
 2. Change directory into the cloned repository `cd hls-foundation-sagemaker`
