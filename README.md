@@ -36,12 +36,17 @@ This repo contains materials for Prithvi Global Finetuning. Here, we will cover 
 
 # Steps to Train (Parts of these steps are also available in the [fine-tuning notebook](notebooks/hls-fm-finteuning.ipynb)):
 1. Clone this repository `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`
-```
 a. Open new terminal
-b. Install git lfs: `sudo apt-get install git-lfs; git lfs install`
-c. Clone this repository `git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`.
+b. Install git lfs:
+
+`sudo apt update;sudo apt-get install git-lfs; git lfs install`
+
+c. Clone this repository
+
+`git clone https://github.com/nasa-impact/hls-foundation-sagemaker.git`.
+
 ![Cloned repository](images/smd-hls-cloned-content.png)
-```
+
 
 **Note: We will follow through in the Notebook from this step.**
 2. Change directory into the cloned repository `cd hls-foundation-sagemaker`
